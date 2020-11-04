@@ -6,6 +6,7 @@ import classes from './Login.css';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import { updateObject, checkValidity } from '../../shared/utility';
+import * as actions from '../../store/actions/index';
 
 const Login = () => {
   const [usernameForm, setUsernameForm] = useState({
@@ -128,21 +129,20 @@ const Login = () => {
   );
 };
 
-// const mapStateToProps = state => {
-//   return {
-//       loading: state.auth.loading,
-//       error: state.auth.error,
-//       isAuthenticated: state.auth.token !== null,
-//       buildingBurger: state.burgerBuilder.building,
-//       authRedirectPath: state.auth.authRedirectPath
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+      loading: state.auth.loading,
+      error: state.auth.error,
+      isAuthenticated: state.auth.token !== null,
+      authRedirectPath: state.auth.authRedirectPath
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//       onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) ),
-//       onSetAuthRedirectPath: () => dispatch( actions.setAuthRedirectPath( '/' ) )
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+      onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) ),
+      onSetAuthRedirectPath: () => dispatch( actions.setAuthRedirectPath( '/' ) )
+  };
+};
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
