@@ -43,10 +43,10 @@
   border-radius: 40px 0px 0px 40px;
   width: 84vw;
   height: 47vh;
-  min-height: 330px;
+  min-height: 390px;
   margin-left: auto;
-  margin-top: 9vh;
-  padding: 40px 49px 28px 49px;
+  margin-top: 7vh;
+  padding: 30px 39px 20px 39px;
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -78,6 +78,20 @@ form {
   font-weight: 600;
 }
 
+.SignOption {
+  color: #999;
+}
+
+.OptionClickable {
+  color: #7552A8;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+  border: none;
+  padding: 0;
+  display: inline;
+}
+
 @media screen and (min-height: 800px) {
   .HeaderText h2 {
     margin-top: 73px;
@@ -85,6 +99,7 @@ form {
 
   .Card {
     margin-top: 12vh;
+    padding: 40px 49px 28px 49px;
   }
 }
 

@@ -61,3 +61,9 @@ export const authCheckState = () => {
     type: actionTypes.AUTH_CHECK_STATE
   }
 }
+
+export const setAuthErrorFalse = () => {
+  return {
+    type: actionTypes.SET_AUTH_ERROR_FALSE
+  }
+}
