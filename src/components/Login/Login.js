@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import classes from './Login.css';
@@ -23,7 +23,8 @@ const Login = (props) => {
     value: '',
     validation: {
       required: true,
-      isEmail: true
+      isEmail: true,
+      maxLength: 100
     },
     valid: false,
     touched: false,
@@ -43,7 +44,9 @@ const Login = (props) => {
     },
     value: '',
     validation: {
-      required: true
+      required: true,
+      minLength: 6,
+      maxLength: 35
     },
     valid: false,
     touched: false,
@@ -51,7 +54,7 @@ const Login = (props) => {
   });
 
   const [isSignup, setIsSignUp] = useState(false);
-  const [showModalError, setShowModalError] = useState(false);
+  const [showModalMessage, setShowModalMessage] = useState(false);
 
   const inputEmailChangedHandler = (event) => {
     const [isValid, errorMessage] = checkValidity(event.target.value, emailForm.validation);
@@ -73,6 +76,13 @@ const Login = (props) => {
       touched: true
     });
     setPasswordForm(updatedControls);
+  }
+
+  const checkAllFormIsValid = () => {
+    let isValid = true;
+    isValid = emailForm.valid;
+    isValid = emailForm.valid && isValid;
+    return isValid;
   }
 
   const submitHandler = ( event ) => {
@@ -99,56 +109,76 @@ const Login = (props) => {
       isValid = false;
     }
 
+    isValid = checkAllFormIsValid() && isValid; 
+
     if (isValid) {
       props.onAuth(emailForm.value, passwordForm.value, isSignup);
     }
   }
 
+  const resetFormToDefault = () => {
+    const defaultForm = {
+      value: '',
+      valid: false,
+      touched: false,
+      errorMessage: null
+    };
+
+    setEmailForm(updateObject(emailForm, defaultForm));
+    setPasswordForm(updateObject(passwordForm, defaultForm));
+  }
+
   const clickOptionHandler = () => {
+    resetFormToDefault();
     setIsSignUp(!isSignup);
   }
 
-  let buttonAuth = <Button
-      disabled={false}
-      btnType={'Success'}>
-      Login
-    </Button>
-
-  if (isSignup) {
-    buttonAuth = <Button
-      disabled={false}
-      btnType={'Success'}>
-      Register
-    </Button>
-  }
-
   const closeModal = () => {
-    setShowModalError(false);
+    setShowModalMessage(false);
     props.onSetAuthErrorFalse();
+
+    if (props.signupStatus) {
+      props.onSetSignupStatusFalse();
+    }
   }
 
-  let errorMessage = null;
+  let modalMessage = null;
   if(props.error){
     switch(props.error.message){
       case 'INVALID_EMAIL':
-        errorMessage = 'Username or password is incorrect';
+        modalMessage = 'Email or password is incorrect';
+        break;
+      case 'INVALID_PASSWORD':
+        modalMessage = 'Email or password is incorrect';
         break;
       case 'EMAIL_NOT_FOUND':
-        errorMessage = 'Username or password is incorrect';
+        modalMessage = 'Email or password is incorrect';
+        break;
+      case 'EMAIL_EXISTS':
+        modalMessage = 'Email account already exists';
         break;
     }
 
-    if (!showModalError) {
-      setShowModalError(true);
+    if (!showModalMessage) {
+      setShowModalMessage(true);
+    }
+  }
+
+  if (props.signupStatus) {
+    modalMessage = 'Register Success, now you can login';
+
+    if (!showModalMessage) {
+      setShowModalMessage(true)
     }
   }
 
   return (
     <div className={classes.Login}>
       <Modal 
-        show={showModalError}
-        modalClosed={() => closeModal()}
-        errorMessage={errorMessage} />
+        show={showModalMessage}
+        modalClosed={() => closeModal()}>
+        <div className={classes.ModalMessage}>{modalMessage}</div>
+      </Modal>
       <div className={classes.UpperSection}>
         <header className={classes.HeaderText}>
           <h1>myMoneyApp</h1>
@@ -181,12 +211,16 @@ const Login = (props) => {
                 changed={(event) => inputPasswordChangedHandler(event, 'Password')}/>
             </div>
             <div className={classes.SignOption}>
-              <p>not have account yet? <span 
+              <p>{isSignup ? 'have an account?' : 'not have account yet?'} <span 
                 className={classes.OptionClickable}
                 onClick={() => clickOptionHandler()}>{isSignup ? 'Login' : 'Register'}</span></p>
             </div>
             <div className={classes.ButtonWrapper}>
-              {buttonAuth}
+            <Button
+              disabled={props.loading}
+              btnType={'Success'}>
+              {isSignup ? 'Register' : 'Login'}
+            </Button>
             </div>
           </form>
         </div>
@@ -203,7 +237,8 @@ const mapStateToProps = state => {
     loading: state.auth.loading,
     error: state.auth.error,
     isAuthenticated: state.auth.token !== null,
-    authRedirectPath: state.auth.authRedirectPath
+    authRedirectPath: state.auth.authRedirectPath,
+    signupStatus: state.auth.signupStatus
   };
 };
 
@@ -211,7 +246,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
     onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
-    onSetAuthErrorFalse: () => dispatch(actions.setAuthErrorFalse())
+    onSetAuthErrorFalse: () => dispatch(actions.setAuthErrorFalse()),
+    onSetSignupStatusFalse: () => dispatch(actions.setSignupStatus(false))
   };
 };
 

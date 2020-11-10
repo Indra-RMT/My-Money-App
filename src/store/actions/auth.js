@@ -67,3 +67,10 @@ export const setAuthErrorFalse = () => {
     type: actionTypes.SET_AUTH_ERROR_FALSE
   }
 }
+
+export const setSignupStatus = (status) => {
+  return {
+    type: actionTypes.SET_SIGNUP_STATUS,
+    status: status
+  }
+}

@@ -5,20 +5,16 @@ import classes from './Modal.css';
 import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = (props) => {
-  const [textError, setTextError] = useState(false);
+  const [modalContent, setModalContent] = useState(false);
 
   const animationTiming = {
     enter: 400,
     exit: 1000
   };
   
-  if (props.show && props.errorMessage !== textError) {
-    setTextError(props.errorMessage);
+  if (props.show && props.children !== modalContent) {
+    setModalContent(props.children);
   }
-
-  const error = (
-    <div className={classes.ErrorMessage}>{textError}</div>
-  );
   
   return (
     <React.Fragment>
@@ -35,7 +31,7 @@ const Modal = (props) => {
           exitActive: classes.ModalClosed,
         }}>
           <div className={classes.Modal}>
-            {error}
+            {modalContent}
           </div>
       </CSSTransition>
     </React.Fragment>

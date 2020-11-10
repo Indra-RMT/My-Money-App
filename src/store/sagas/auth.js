@@ -31,14 +31,23 @@ export function* authUserSaga(action) {
     const response = yield axios.post(url, authData);
     console.log(response);
 
-    const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);
-    yield localStorage.setItem('token', response.data.idToken);
-    yield localStorage.setItem('expirationDate', expirationDate);
-    yield localStorage.setItem('userId', response.data.localId);
-    yield put(actions.authSuccess(response.data.idToken, response.data.localId));
-    yield put(actions.checkAuthTimeout(response.data.expiresIn));
+    if (!action.isSignup) {
+      const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);
+      yield localStorage.setItem('token', response.data.idToken);
+      yield localStorage.setItem('expirationDate', expirationDate);
+      yield localStorage.setItem('userId', response.data.localId);
+      yield put(actions.authSuccess(response.data.idToken, response.data.localId));
+      yield put(actions.checkAuthTimeout(response.data.expiresIn));
+      yield put(actions.setSignupStatus(false));
+    }
+
+    if (action.isSignup) {
+      yield put(actions.authSuccess(response.data.idToken, response.data.localId));
+      yield put(actions.setSignupStatus(true));
+    }    
   } catch (error) {
     yield put(actions.authFail(error.response.data.error));
+    yield put(actions.setSignupStatus(false));
     console.log(error);
   }
 }

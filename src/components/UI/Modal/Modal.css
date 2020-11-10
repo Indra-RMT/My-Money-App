@@ -56,9 +56,3 @@
       transform: translateY(-60vh);
   }
 }
-
-.ErrorMessage {
-  line-height: 30px;
-  font-size: 20px;
-  font-weight: 400;  
-}

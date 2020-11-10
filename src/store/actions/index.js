@@ -8,5 +8,6 @@ export {
   authSuccess,
   authFail,
   checkAuthTimeout,
-  setAuthErrorFalse
+  setAuthErrorFalse,
+  setSignupStatus
 } from './auth';

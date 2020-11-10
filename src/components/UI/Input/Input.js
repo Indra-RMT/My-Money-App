@@ -60,7 +60,7 @@ const input = ( props ) => {
 	}
 
 	let errorMessage = null;
-	if (isFocus || !props.isValid) {
+	if (isFocus || props.isValid) {
 		errorMessage = props.errorMessage;
 	}
 

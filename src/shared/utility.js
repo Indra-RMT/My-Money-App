@@ -8,6 +8,7 @@ export const updateObject = (oldObject, updatedProperties) => {
 export const checkValidity = ( value, rules ) => {
   let isValid = true;
   let errorMessage = null;
+  let isMinLengthValid = false;
   if ( !rules ) {
     return [isValid, errorMessage];
   }
@@ -23,12 +24,14 @@ export const checkValidity = ( value, rules ) => {
 		isValid = value.length >= rules.minLength && isValid;
 		if (isValid === false) {
       errorMessage = `minimal character is ${rules.minLength}`;
+    } else {
+      isMinLengthValid = true;
     }
   }
 
   if (rules.maxLength) {
 		isValid = value.length <= rules.maxLength && isValid;
-		if (isValid === false) {
+		if (isValid === false && isMinLengthValid) {
       errorMessage = `maximal character is ${rules.maxLength}`;
     }
   }

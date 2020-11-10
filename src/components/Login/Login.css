@@ -92,6 +92,12 @@ form {
   display: inline;
 }
 
+.ModalMessage {
+  line-height: 30px;
+  font-size: 20px;
+  font-weight: 400;  
+}
+
 @media screen and (min-height: 800px) {
   .HeaderText h2 {
     margin-top: 73px;
