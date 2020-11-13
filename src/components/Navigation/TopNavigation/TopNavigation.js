@@ -10,21 +10,7 @@ const TopNavigation = (props) => {
 
   const buttonNavClickHandler = () => {
     setIsSideDrawerOpen(!isSideDrawerOpen);
-  }
-
-  let sideDrawer = null
-  if (isSideDrawerOpen) {
-    sideDrawer = (
-      <React.Fragment>
-        <Backdrop
-          show={true}
-          clicked={() => setIsSideDrawerOpen(!isSideDrawerOpen)}/>
-        <SideDrawer 
-          show={isSideDrawerOpen}/>
-      </React.Fragment>
-    )
-  }
-  
+  }  
 
   return (
     <nav className={classes.TopNavigation}>
@@ -40,7 +26,11 @@ const TopNavigation = (props) => {
           </li>
         </ul>
       </Container>
-      {sideDrawer}
+      <Backdrop
+          show={isSideDrawerOpen}
+          clicked={() => setIsSideDrawerOpen(!isSideDrawerOpen)}/>
+      <SideDrawer 
+        show={isSideDrawerOpen}/>
     </nav>
   )
 }

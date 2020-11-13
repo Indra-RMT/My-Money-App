@@ -1,28 +1,41 @@
 import React from 'react';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import classes from './SideDrawer.css';
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 const SideDrawer = (props) => {
+  const animationTiming = {
+    enter: 300,
+    exit: 300
+  };
+
   return (
-    <React.Fragment>
+    <CSSTransition
+      mountOnEnter
+      unmountOnExit
+      in={props.show}
+      timeout={animationTiming}
+      classNames={{
+        enter: '',
+        enterActive: classes.SideDrawerOpen,
+        exit: '',
+        exitActive: classes.SideDrawerClosed,
+      }}>
       <div className={classes.SideDrawer} id="sideDrawer">
         <section className={classes.HeaderSection}>
           <div className={classes.CircleImage}>
-            <img src="https://www.w3schools.com/images/colorpicker.gif" />
+            <img src = "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" / >
           </div>
           <div className={classes.Name}>Indra Rahmanto</div>
-          <div className={classes.Email}>indra.anto42@gmail.com</div>
+          <div className={classes.Email}>indra.anto42 @gmail.com</div>
         </section>
         <section className={classes.PageList}>
-          <ul>
-            <li>Home</li>
-            <li>Transactions</li>
-          </ul>
+          <NavigationItems/>
         </section>
-      </div>
-    </React.Fragment>
+      </div> 
+    </CSSTransition>
   );
 }
 
 export default SideDrawer;
-
