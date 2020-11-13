@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: ''
+    publicPath: '/'
   },
   devtool: 'cheap-module-eval-source-map',
   module: {
@@ -45,6 +45,9 @@ module.exports = {
         loader: 'url-loader?limit=8000&name=images/[name].[ext]'
       }
     ]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

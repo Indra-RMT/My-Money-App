@@ -1,0 +1,15 @@
+.SideDrawer{
+  top: 0;
+  height: 100%;
+  width: 80%;
+  position: fixed;
+  z-index: 50;
+  background-color: #ffffff;
+}
+
+.HeaderSection {
+  background-image: url("../../../assets/side-drawer-image.png");
+  height: 227px;
+  background-size: cover; 
+  background-repeat: no-repeat;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 import classes from './Login.css';
 import Input from '../../components/UI/Input/Input';
@@ -172,8 +173,14 @@ const Login = (props) => {
     }
   }
 
+  let authRedirect = null;
+  if ( props.isAuthenticated ) {
+      authRedirect = <Redirect to={props.authRedirectPath} />
+  }
+
   return (
     <div className={classes.Login}>
+      {authRedirect}
       <Modal 
         show={showModalMessage}
         modalClosed={() => closeModal()}>

@@ -1,38 +1,56 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
-  Link,
   Route,
   Switch,
-	Redirect,
 	withRouter
 } from 'react-router-dom';
+import * as actions from './store/actions/index';
 
 import Auth from './containers/Auth';
+import HomePage from './containers/HomePage';
 
-const Users = React.lazy(() => {
-  return import('./containers/Users');
-});
-const Pizza = React.lazy(() => {
-  return import('./containers/Pizza');
-});
+const App = (props) => {
+	const { onTryAutoSignup } = props;
 
-const App = () => {
+  useEffect(() => {
+    onTryAutoSignup();
+  }, []);
 
-	const routes = (
-		<Switch>
-			<Route path="/pizza" render={(props) => <Pizza {...props} />} />
-			<Route path="/" exact render={(props) => <Auth {...props} />} />
-			<Redirect to="/" />
-		</Switch>
-	)
+	let routes = '';
+	if (props.isAuthenticated) {
+		routes = (
+			<Switch>
+				<Route path="/Auth" render={(props) => <Auth {...props} />} />
+				<Route path="/" exact render={(props) => <HomePage {...props} />} />
+				{/* <Redirect to="/" /> */}
+			</Switch>
+		)
+	} else {
+		routes = (
+			<Switch>
+				<Route path="/Auth" render={(props) => <Auth {...props} />} />
+				<Route path="/" exact render={(props) => <HomePage {...props} />} />
+				{/* <Redirect to="/" /> */}
+			</Switch>
+		)
+	}
 
 	return (
-		<div>
-			<div>
-				<Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
-			</div>
-		</div>
+		<Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
 	);
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,0 +1,131 @@
+.MyBallanceWrapper {
+  background-color: #7552A8;
+  padding: 33px 13px;
+  border-bottom-left-radius: 60px;
+}
+
+.BallanceText {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42.23px;
+  color: #ffffff;
+}
+
+.BallanceDate {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.11px;
+  color: #ffffff;
+}
+
+.BallanceNumber {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56.3px;
+  color: #ffffff;
+  margin-top: 17px;
+  text-align: right;
+  margin-bottom: 60px;
+}
+
+.HighlightWrapper {
+  display: flex;
+  margin-top: -50px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.HighlightWrapper > div {
+  margin: 8px;
+}
+
+.HighlightWrapper p {
+  display: table;
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 23.46px;
+  color: #7552A8;
+}
+
+.HighlightWrapper p:nth-child(2) {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.15px;
+  color: #111D45;
+  margin: 11px auto 9px auto;
+}
+
+.LineChartWrapper {
+  margin-top: 24px;
+}
+
+.SectionTextHeader {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23.46px;
+  color: #111D45;
+}
+
+.LineChart {
+  margin-top: 12px;
+  background-color: rgb(142, 201, 201);
+  width: 100%;
+  height: 200px;
+}
+
+.RecentWrapper {
+  margin-top: 20px;
+}
+
+.Transactions {
+  margin-top: 12px;
+}
+
+.FloatingButton {
+  height: 77px;
+  width: 77px;
+  border-radius: 50%;
+  background-color: #7552A8;
+  position: fixed;
+  bottom: 11px;
+  right: 15px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.FloatingButton > div {
+  color: #ffffff;
+  margin-top: 11%;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56.3px;
+}
+
+.LoadMoreWrapper {
+  margin: 15px auto 40px auto;
+  text-align: center;
+}
+
+.LoadMoreWrapper > button {
+  font: inherit;
+  color: #111D45;
+  padding: 3px 12px;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid #7552A8;
+}
+
+@media screen and (min-width: 380px) {
+  .HighlightWrapper p:nth-child(2) {
+    font-size: 22px;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .HighlightWrapper p:nth-child(2) {
+    font-size: 24px;
+  }
+}
