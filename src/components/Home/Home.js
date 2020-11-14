@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './Home.css';
 import Container from '../../components/UI/Container/Container';
 import Card from '../../components/UI/Card/Card';
 import TransactionsHistory from './TransactionsHistory/TransactionsHistory';
+import Modal from '../UI/Modal/Modal';
  
 const Home = (props) => {
+  const [isModalTransactionOpen, setModalTransactionOpen] = useState(false);
+
+  if (isModalTransactionOpen) {
+    console.log('open');
+  }
+
   return (
     <React.Fragment>
       <main>
@@ -54,11 +61,20 @@ const Home = (props) => {
           </Container>
         </article>
       </main>
-      <button className={classes.FloatingButton}>
+      <button 
+        className={classes.FloatingButton}
+        onClick={() => setModalTransactionOpen(true)}>
         <div>
           +
         </div>
       </button>
+      <Modal
+        show={isModalTransactionOpen}
+        styleTop={'8%'}
+        styleWidth={'90%'}
+        modalClosed={() => setModalTransactionOpen(false)}>
+        Open
+      </Modal>
     </React.Fragment>
   );
 }

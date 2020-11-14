@@ -97,11 +97,12 @@
 
 .FloatingButton > div {
   color: #ffffff;
-  margin-top: 11%;
+  margin-top: 9%;
   text-align: center;
   font-size: 48px;
   font-weight: 600;
   line-height: 56.3px;
+  border-radius: 50%;
 }
 
 .LoadMoreWrapper {

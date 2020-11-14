@@ -28,7 +28,7 @@ const SideDrawer = (props) => {
             <img src = "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" / >
           </div>
           <div className={classes.Name}>Indra Rahmanto</div>
-          <div className={classes.Email}>indra.anto42 @gmail.com</div>
+          <div className={classes.Email}>indra.anto42@gmail.com</div>
         </section>
         <section className={classes.PageList}>
           <NavigationItems/>
