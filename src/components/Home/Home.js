@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Home.css';
 import Container from '../../components/UI/Container/Container';
 import Card from '../../components/UI/Card/Card';
 import TransactionsHistory from './TransactionsHistory/TransactionsHistory';
-import Modal from '../UI/Modal/Modal';
+import TransactionHandler from './TransactionHandler/TransactionHandler';
+import Toast from '../UI/Toast/Toast';
+import * as actions from '../../store/actions/index';
  
 const Home = (props) => {
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false);
 
+  const closeModalHandler = (event) => {
+    if (event.key === "Escape") {
+      setModalTransactionOpen(false);
+      props.onSetAddTransactionToDefault();
+      window.removeEventListener('keydown', closeModalHandler);
+    }
+  }
+
   if (isModalTransactionOpen) {
-    console.log('open');
+    window.addEventListener('keydown', closeModalHandler);
   }
 
   return (
@@ -68,15 +79,37 @@ const Home = (props) => {
           +
         </div>
       </button>
-      <Modal
+      <TransactionHandler
         show={isModalTransactionOpen}
-        styleTop={'8%'}
-        styleWidth={'90%'}
-        modalClosed={() => setModalTransactionOpen(false)}>
-        Open
-      </Modal>
+        closeTransactionHandler={() => setModalTransactionOpen(false)}/>
+      <Toast
+        type={'Success'}
+        show={props.isAddTransactionSuccess}
+        closed={() => props.onSetAddTransactionToDefault()}
+        showTime={2000}>
+        Add transaction success
+      </Toast>
+      <Toast
+        type={'Danger'}
+        show={props.isAddTransactionSuccess === false}
+        closed={() => props.onSetAddTransactionToDefault()}
+        showTime={2000}>
+        Add transaction failed
+      </Toast>
     </React.Fragment>
   );
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    isAddTransactionSuccess: state.trans.isAddTransactionSuccess,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetAddTransactionToDefault: () => dispatch(actions.addTransactionDefault())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

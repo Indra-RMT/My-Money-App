@@ -1,0 +1,16 @@
+form {
+  margin-top: 5px;
+}
+
+form button {
+  margin-top: 49px;
+}
+
+.ChooseTransWrapper {
+  margin-top: 123px;
+  display: flex;
+}
+
+.ChooseTransWrapper button {
+  margin: 0 10px;
+}

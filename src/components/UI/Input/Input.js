@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
 
 import classes from './Input.css';
+import { updateObject } from './../../../shared/utility';
 
 const input = ( props ) => {
 	const [isFocus, setIsFocus] = useState(false);
+	const [startDate, setStartDate] = useState(new Date());
 
 	let inputElement = null;
 	const inputClasses = [classes.InputElement];
@@ -17,21 +20,34 @@ const input = ( props ) => {
 		classes[props.label.type]
 	].join(' ');
 
+	const allowOnlyNumber = (event) => {
+		const value = event.target.value;
+		const numberOnly = updateObject(event, {
+			target: updateObject(event.target, {
+				value: value.replace(/[^0-9]+/g, "")
+			})
+		});
+		return numberOnly;
+	}
+
 	switch (props.elementType) {
 		case ('input'):
 			inputElement = <input
 				className={inputClasses.join(' ')}
 				{...props.elementConfig}
 				value={props.value}
-				onChange={props.changed}
+				onChange={(event) => props.elementConfig.type === 'number' ? 
+					props.changed(allowOnlyNumber(event)) : 
+					props.changed(event)}
 				onBlur={() => setIsFocus(true)} />;
 			break;
 		case ('textarea'):
 			inputElement = <textarea
-				className={inputClasses.join(' ')}
+				className={[classes.Textarea, inputClasses].join(' ')}
 				{...props.elementConfig}
 				value={props.value}
 				onChange={props.changed}
+				rows={3}
 				onBlur={() => setIsFocus(true)} />;
 			break;
 		case ('select'):
@@ -49,6 +65,26 @@ const input = ( props ) => {
 				</select>
 			);
 			break;
+		case ('datePicker'):
+			inputElement = (
+				<React.Fragment>
+					<DatePicker
+						className={[classes.DatePicker, inputClasses].join(' ')}
+						wrapperClassName={classes.datePicker}
+						{...props.elementConfig}
+						selected={startDate}
+						onChange={date => {
+							if (date === null) {
+								date = new Date();
+							}
+							setStartDate(date)
+							props.changed({target:{value:date}})
+						}}
+						onBlur={() => setIsFocus(true)} />
+					<div></div>
+				</React.Fragment>
+			);
+			break;
 		default:
 			inputElement = <input
 				id={props.id}
@@ -61,6 +97,10 @@ const input = ( props ) => {
 
 	let errorMessage = null;
 	if (isFocus || props.isValid) {
+		errorMessage = props.errorMessage;
+	}
+
+	if (!isFocus && !props.isValid && props.errorMessage == 'input required') {
 		errorMessage = props.errorMessage;
 	}
 

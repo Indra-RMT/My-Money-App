@@ -1,0 +1,58 @@
+.Toast {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 5px auto 5px auto;
+  color: #ffffff;
+}
+
+.Text {
+  margin: 9px auto 9px auto;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.Success {
+  background-color: #4AA254;
+}
+
+.Danger {
+  background-color: #C74242;
+}
+
+.Warning {
+  background-color: #DF954A;
+}
+
+.ToastOpen {
+  animation: openToast .4s ease-out forwards;
+}
+
+.ToastClosed {
+  animation: closeToast .4s ease-out forwards;
+}
+
+@keyframes openToast {
+  0% {
+      opacity: 0;
+      transform: translateY(-5vh);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes closeToast {
+  0% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(-5vh);
+  }
+}

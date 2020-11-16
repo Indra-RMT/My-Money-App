@@ -11,3 +11,10 @@ export {
   setAuthErrorFalse,
   setSignupStatus
 } from './auth';
+
+export {
+  addTransaction,
+  addTransactionSuccess,
+  addTransactionDefault,
+  addTransactionFail
+} from './transaction';

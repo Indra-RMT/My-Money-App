@@ -12,3 +12,9 @@ export const SET_AUTH_ERROR_FALSE = 'SET_AUTH_ERROR_FALSE';
 
 
 export const SET_SIGNUP_STATUS = 'SET_SIGNUP_STATUS';
+
+
+export const TRANS_ADD = 'TRANS_ADD';
+export const TRANS_SUCCESS = 'TRANS_SUCCESS';
+export const TRANS_DEFAULT = 'TRANS_DEFAULT';
+export const TRANS_FAIL = 'TRANS_FAIL';

@@ -10,7 +10,18 @@ const TopNavigation = (props) => {
 
   const buttonNavClickHandler = () => {
     setIsSideDrawerOpen(!isSideDrawerOpen);
-  }  
+  }
+
+  const closeModalHandler = (event) => {
+    if (event.key === "Escape") {
+      setIsSideDrawerOpen(false);
+      window.removeEventListener('keydown', closeModalHandler);
+    }
+  }
+
+  if (isSideDrawerOpen) {
+    window.addEventListener('keydown', closeModalHandler);
+  }
 
   return (
     <nav className={classes.TopNavigation}>

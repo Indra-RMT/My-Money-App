@@ -10,13 +10,15 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
 import authReducer from './store/reducers/auth';
+import transactionReducer from './store/reducers/transaction';
 import { watchAuth } from './store/sagas/index';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+	auth: authReducer,
+	trans: transactionReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

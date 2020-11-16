@@ -3,9 +3,9 @@
   z-index: 80;
   background-color: white;
   width: 70%;
-  border: 1px solid #ccc;
-  box-shadow: 1px 1px 1px black;
-  padding: 16px;
+  max-height: 90%;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0px 4px 6px 1px rgba(114, 46, 167, 0.36);
   left: calc(-50vw + 50%);
   right: calc(-50vw + 50%);
   margin-left: auto;
@@ -13,6 +13,46 @@
   top: 30%;
   box-sizing: border-box;
   border-radius: 9px;
+  overflow: scroll;
+}
+
+.ModalHeaderWrapper {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 10;
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 16px 8px 16px;
+  box-shadow: 0px -6px 4px 9px rgba(0,0,0,0.14);
+}
+
+.ModalHeader > div {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28.15px;
+  color: #111D45;
+}
+
+.ModalHeader > button {
+  margin: -10px -10px 0 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(114, 46, 167, 0.08);
+  font-weight: 600;
+  font-size: 18px;
+  color: #111D45;
+  cursor: pointer;
+}
+
+.ModalBody {
+  padding: 16px;
 }
 
 /* @media (min-width: 600px) {

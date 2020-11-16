@@ -6,6 +6,7 @@ import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = (props) => {
   const [modalContent, setModalContent] = useState(false);
+  const [modalHeader, setModalHeader] = useState(false);
 
   const animationTiming = {
     enter: 400,
@@ -16,12 +17,23 @@ const Modal = (props) => {
     setModalContent(props.children);
   }
 
-  const modalStyleTop = props.styleTop ? {top: props.styleTop} : {top: '30%'};
-  const modalStyleWidth = props.styleWidth ? {width: props.styleWidth} : {width: '70%'};
-  const style = {...modalStyleTop, ...modalStyleWidth}
+  if (props.show && props.modalHeader !== modalHeader) {
+    setModalHeader(props.modalHeader);
+  }
+
+  const setModalStyle = (styleTop, styleWidth) => {
+    const modalStyleTop = styleTop ? {top: styleTop} : {top: '30%'};
+    const modalStyleWidth = styleWidth ? {width: styleWidth} : {width: '70%'};
+    return {...modalStyleTop, ...modalStyleWidth}
+  }
+
+  let isHeaderModalFilled = {display: "none"};
+  if (modalHeader) {
+    isHeaderModalFilled = {display: "block"};
+  }
 
   return (
-    <React.Fragment>
+    <div id="Modal">
       <Backdrop show={props.show} clicked={props.modalClosed} />
       <CSSTransition
         mountOnEnter
@@ -34,11 +46,18 @@ const Modal = (props) => {
           exit: '',
           exitActive: classes.ModalClosed,
         }}>
-          <div className={classes.Modal} style={style}>
-            {modalContent}
+          <div className={classes.Modal} style={setModalStyle(props.styleTop, props.styleWidth)}>
+            <div className={classes.ModalHeaderWrapper} style={isHeaderModalFilled}>
+              <div className={classes.ModalHeader}>
+                {modalHeader}
+              </div>
+            </div>
+            <div className={classes.ModalBody}>
+              {modalContent}
+            </div>
           </div>
       </CSSTransition>
-    </React.Fragment>
+    </div>
   )
 }
 
