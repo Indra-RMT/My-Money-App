@@ -21,7 +21,9 @@ const Transaction = (props) => {
   }
 
   return (
-    <div className={classes.Transaction}>
+    <div 
+      className={classes.Transaction}
+      onClick={props.clicked}>
       <div className={classes.LeftWrapper}>
         <div>{transactionIcon}</div>
         <div>{props.money}</div>

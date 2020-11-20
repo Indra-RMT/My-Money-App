@@ -29,7 +29,6 @@ export function* authUserSaga(action) {
   }
   try {
     const response = yield axios.post(url, authData);
-    console.log(response);
 
     if (!action.isSignup) {
       const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);

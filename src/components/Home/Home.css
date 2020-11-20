@@ -51,7 +51,7 @@
 .HighlightWrapper p:nth-child(2) {
   font-size: 18px;
   font-weight: 400;
-  line-height: 28.15px;
+  line-height: 16px;
   color: #111D45;
   margin: 11px auto 9px auto;
 }
@@ -83,8 +83,8 @@
 }
 
 .FloatingButton {
-  height: 77px;
-  width: 77px;
+  height: 67px;
+  width: 67px;
   border-radius: 50%;
   background-color: #7552A8;
   position: fixed;
@@ -97,9 +97,9 @@
 
 .FloatingButton > div {
   color: #ffffff;
-  margin-top: 9%;
+  margin-top: 7%;
   text-align: center;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 600;
   line-height: 56.3px;
   border-radius: 50%;
@@ -122,11 +122,23 @@
 @media screen and (min-width: 380px) {
   .HighlightWrapper p:nth-child(2) {
     font-size: 22px;
+    line-height: 24px;
+  }
+
+  .FloatingButton {
+    height: 77px;
+    width: 77px;
+  }
+
+  .FloatingButton > div {
+    font-size: 48px;
+    margin-top: 9%;
   }
 }
 
 @media screen and (min-width: 400px) {
   .HighlightWrapper p:nth-child(2) {
     font-size: 24px;
+    line-height: 28px;
   }
 }

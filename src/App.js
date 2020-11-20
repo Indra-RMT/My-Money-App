@@ -3,27 +3,36 @@ import { connect } from 'react-redux';
 import {
   Route,
   Switch,
-	withRouter
+	withRouter,
+	Redirect
 } from 'react-router-dom';
 import * as actions from './store/actions/index';
 
 import Auth from './containers/Auth';
 import HomePage from './containers/HomePage';
+import Transaction from './containers/Transaction';
 
 const App = (props) => {
 	const { onTryAutoSignup } = props;
 
   useEffect(() => {
     onTryAutoSignup();
-  }, []);
+	}, []);
+	
+	const Page404 = ({ location }) => (
+		<div>
+			 <h2>No match found for <code>{location.pathname}</code></h2>
+		</div>
+ );
 
 	let routes = '';
 	if (props.isAuthenticated) {
 		routes = (
 			<Switch>
 				<Route path="/Auth" render={(props) => <Auth {...props} />} />
+				<Route path="/Transaction" render={(props) => <Transaction {...props}/>} />
 				<Route path="/" exact render={(props) => <HomePage {...props} />} />
-				{/* <Redirect to="/" /> */}
+				<Route component={Page404} />
 			</Switch>
 		)
 	} else {
@@ -31,7 +40,7 @@ const App = (props) => {
 			<Switch>
 				<Route path="/Auth" render={(props) => <Auth {...props} />} />
 				<Route path="/" exact render={(props) => <HomePage {...props} />} />
-				{/* <Redirect to="/" /> */}
+				<Route component={Page404} />
 			</Switch>
 		)
 	}

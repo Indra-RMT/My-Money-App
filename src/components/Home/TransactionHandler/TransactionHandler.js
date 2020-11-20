@@ -198,6 +198,7 @@ const TransactionHandler = (props) => {
 
     if (isValid) {
       props.onAddTransaction({
+        userId: props.userId,
         transactionType: transactionOpen,
         name: nameForm.value,
         date: dateForm.value,
@@ -271,14 +272,6 @@ const TransactionHandler = (props) => {
               }} />
             <Button btnType="White">Add</Button>
           </form>
-          <div className={classes.ChooseTransWrapper}>
-            <Button 
-              btnType="Success"
-              clicked={setTransactionToIncome}>Income</Button>
-            <Button 
-              btnType="Success"
-              clicked={setTransactionToSpend}>Spend</Button>
-          </div>
         </div>
       </div>
     );
@@ -294,13 +287,43 @@ const TransactionHandler = (props) => {
     </React.Fragment>
   );
 
+  const modalFooter = (
+    <React.Fragment>
+      <Button 
+        btnType="Success"
+        clicked={setTransactionToIncome}>Income</Button>
+      <Button 
+        btnType="Success"
+        clicked={setTransactionToSpend}>Spend</Button>
+    </React.Fragment>
+  )
+
+  const changeLabelTextMoneyForm = (target) => {
+    setMoneyIncomeForm(
+      updateObject(moneyIncomeForm, {
+        label: updateObject(moneyIncomeForm.label, {
+          text: target
+        })
+      })
+    );
+  }
+
+  if (transactionOpen === 'income' && moneyIncomeForm.label.text !== 'Money Income') {
+    changeLabelTextMoneyForm('Money Income');
+  }
+
+  if (transactionOpen === 'spend' && moneyIncomeForm.label.text !== 'Money Spend') {
+    changeLabelTextMoneyForm('Money Spend');
+  }
+
   return (
     <Modal
       show={props.show}
       styleTop={'8%'}
       styleWidth={'90%'}
       modalClosed={props.closeTransactionHandler}
-      modalHeader={modalHeader}>
+      modalHeader={modalHeader}
+      modalFooter={modalFooter}>
       <div className={classes.TransactionHandlerWrapper}>
         {modalContent}
       </div>
@@ -310,6 +333,7 @@ const TransactionHandler = (props) => {
 
 const mapStateToProps = state => {
   return {
+    userId: state.auth.userId,
     isAuthenticated: state.auth.token !== null
   };
 };

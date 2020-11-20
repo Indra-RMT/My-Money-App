@@ -1,44 +1,50 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom'
 
 import Transaction from './Transaction/Transaction';
 
 const TransactionsHistory = (props) => {
-  const [transactions, setTransactions] = useState([
-    {
-      id: '001',
-      type: 'spend',
-      name: 'Beli Meja',
-      date: '11-02-2020',
-      money: '1700000',
-    },
-    {
-      id: '002',
-      type: 'income',
-      name: 'Projek Dua',
-      date: '11-02-2020',
-      money: '2400000'
-    },
-    {
-      id: '003',
-      type: 'income',
-      name: 'Projek Satu',
-      date: '11-02-2020',
-      money: '6200000'
-    }
-  ]);
-  
+  const transactionClickedHandler = (transId) => {
+    props.history.push({
+      pathname: '/transaction/',
+      state: {
+        transactionId: transId
+      }
+    });
+  }
+
+  let transactionList = null;
+  if (props.trsansactions) {
+    const sortedTransactions = props.trsansactions.sort((a, b) => {
+      return b.date - a.date;
+    });
+    const lastTransactions = sortedTransactions.slice(0, 5);
+    transactionList = lastTransactions.map(trans => (
+      <Transaction
+        key={trans.id}
+        id={trans.id}
+        type={trans.transactionType}
+        name={trans.name}
+        date={trans.date}
+        money={trans.money}
+        clicked={() => transactionClickedHandler(trans.id)}/>
+    ))
+  }
+
+  if (Array.isArray(props.trsansactions) && props.trsansactions.length === 0) {
+    transactionList = (
+      <div style={{
+        color: '#aaaaaa',
+        marginBottom: '25px',
+      }}>no transaction yet</div>
+    )
+  }
+
   return (
     <div>
-      {transactions.map(trans => (
-        <Transaction
-          key={trans.id}
-          type={trans.type}
-          name={trans.name}
-          date={trans.date}
-          money={trans.money} />
-      ))}    
+      {transactionList}
     </div>
   );
 }
 
-export default TransactionsHistory;
+export default withRouter(TransactionsHistory);

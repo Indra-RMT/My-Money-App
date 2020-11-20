@@ -7,6 +7,7 @@ import Backdrop from '../Backdrop/Backdrop';
 const Modal = (props) => {
   const [modalContent, setModalContent] = useState(false);
   const [modalHeader, setModalHeader] = useState(false);
+  const [modalFooter, setModalFooter] = useState(false);
 
   const animationTiming = {
     enter: 400,
@@ -21,6 +22,10 @@ const Modal = (props) => {
     setModalHeader(props.modalHeader);
   }
 
+  if (props.show && props.modalFooter !== modalFooter) {
+    setModalFooter(props.modalFooter);
+  }
+
   const setModalStyle = (styleTop, styleWidth) => {
     const modalStyleTop = styleTop ? {top: styleTop} : {top: '30%'};
     const modalStyleWidth = styleWidth ? {width: styleWidth} : {width: '70%'};
@@ -30,6 +35,11 @@ const Modal = (props) => {
   let isHeaderModalFilled = {display: "none"};
   if (modalHeader) {
     isHeaderModalFilled = {display: "block"};
+  }
+
+  let isFooterModalFilled = {display: "none"};
+  if (modalFooter) {
+    isFooterModalFilled = {display: "block"};
   }
 
   return (
@@ -54,6 +64,11 @@ const Modal = (props) => {
             </div>
             <div className={classes.ModalBody}>
               {modalContent}
+            </div>
+            <div className={classes.ModalFooterWrapper} style={isFooterModalFilled}>
+              <div className={classes.ModalFooter}>
+                {modalFooter}
+              </div>
             </div>
           </div>
       </CSSTransition>

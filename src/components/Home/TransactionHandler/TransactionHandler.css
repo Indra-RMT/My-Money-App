@@ -1,14 +1,17 @@
-form {
+.TransactionHandler form {
   margin-top: 5px;
 }
 
-form button {
-  margin-top: 49px;
+.TransactionHandler form button {
+  margin-top: 20px;
 }
 
 .ChooseTransWrapper {
-  margin-top: 123px;
+  margin-top: 50px;
   display: flex;
+  position: sticky;
+  bottom: 16px;
+  background-color: aqua;
 }
 
 .ChooseTransWrapper button {
