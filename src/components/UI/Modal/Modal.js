@@ -43,7 +43,7 @@ const Modal = (props) => {
   }
 
   return (
-    <div id="Modal">
+    <div id={props.modalId}>
       <Backdrop show={props.show} clicked={props.modalClosed} />
       <CSSTransition
         mountOnEnter

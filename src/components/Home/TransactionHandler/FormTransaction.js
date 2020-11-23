@@ -146,6 +146,9 @@ const FormTransaction = (props) => {
       setMoneyIncomeForm(updateObject(moneyIncomeForm, {
         value: props.transactionData.money,
       }));
+      setDateForm(updateObject(dateForm, {
+        value: new Date(+props.transactionData.date)
+      }));
       setDescriptionForm(updateObject(descriptionForm, {
         value: props.transactionData.description,
       }));
@@ -274,7 +277,9 @@ const FormTransaction = (props) => {
                 const updatedControls = inputChangedHandler(event, descriptionForm);
                 setDescriptionForm(updatedControls);
               }} />
-            <Button btnType="White">Add</Button>
+            <Button 
+              btnType="Success"
+              disabled={props.loading}>{props.transactionType}</Button>
           </form>
         </div>
       </div>
@@ -309,7 +314,8 @@ const FormTransaction = (props) => {
 const mapStateToProps = state => {
   return {
     userId: state.auth.userId,
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    loading: state.trans.loading
   };
 };
 

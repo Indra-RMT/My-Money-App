@@ -13,8 +13,10 @@ export {
 } from './auth';
 
 export {
-  initTransactions,
-  fetchTransactionsSuccess,
+  fetchTransactionStart,
+  fetchTransactionFail,
+  readAllTransaction,
+  readAllTransactionSuccess,
   addTransaction,
   addTransactionSuccess,
   addTransactionDefault,

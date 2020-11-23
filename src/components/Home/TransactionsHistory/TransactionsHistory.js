@@ -15,8 +15,8 @@ const TransactionsHistory = (props) => {
   }
 
   let transactionList = null;
-  if (props.trsansactions) {
-    const sortedTransactions = props.trsansactions.sort((a, b) => {
+  if (props.allTransaction) {
+    const sortedTransactions = props.allTransaction.sort((a, b) => {
       return b.date - a.date;
     });
     const lastTransactions = sortedTransactions.slice(0, 5);
@@ -32,7 +32,7 @@ const TransactionsHistory = (props) => {
     ))
   }
 
-  if (Array.isArray(props.trsansactions) && props.trsansactions.length === 0) {
+  if (Array.isArray(props.allTransaction) && props.allTransaction.length === 0) {
     transactionList = (
       <div style={{
         color: '#aaaaaa',

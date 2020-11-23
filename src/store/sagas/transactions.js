@@ -4,7 +4,8 @@ import axios from '../../../axios-transactions';
 
 import * as actions from '../actions/index';
 
-export function* initTransactionsSaga(action) {
+export function* readAllTransactionSaga(action) {
+  yield put(actions.fetchTransactionStart());
   try {
     const userToken = localStorage.getItem('token');
     const queryParams = '?auth=' + userToken + '&orderBy="userId"&equalTo="' + action.userId + '"';
@@ -12,12 +13,13 @@ export function* initTransactionsSaga(action) {
     const fetchedTransactions = [];
     for ( let key in response.data ) {
       fetchedTransactions.push( {
-            ...response.data[key],
-            id: key
-        } );
+        ...response.data[key],
+        id: key
+      } );
     }
-    yield put(actions.fetchTransactionsSuccess(fetchedTransactions));
+    yield put(actions.readAllTransactionSuccess(fetchedTransactions));
   } catch (error) {
+    yield put(actions.fetchTransactionFail(error));
   }
 }
 
@@ -32,12 +34,13 @@ export function* addTransactionSaga(action) {
   }
 
   const userToken = localStorage.getItem('token');
-  const queryParams = `?auth=${userToken}`;
+  const queryParams = `?autsh=${userToken}`;
 
   try {
-    const response = yield axios.post(queryParams, transactionData);
+    yield put(actions.fetchTransactionStart());
+    yield axios.post(queryParams, transactionData);
     yield put(actions.addTransactionSuccess());
-    yield put(actions.initTransactions(action.userId));
+    yield put(actions.readAllTransaction(action.userId));
   } catch (error) {
     yield put(actions.addTransactionFail());
   }

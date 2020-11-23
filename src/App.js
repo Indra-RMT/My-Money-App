@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
-	Redirect,
   Route,
   Switch,
 	withRouter
@@ -11,7 +10,6 @@ import * as actions from './store/actions/index';
 import Auth from './containers/Auth';
 import HomePage from './containers/HomePage';
 import TransactionPage from './containers/TransactionPage';
-import ScrollToTop from './components/UI/ScrollToTop/ScrollToTop';
 
 const App = (props) => {
 	const { onTryAutoSignup } = props;
@@ -22,7 +20,6 @@ const App = (props) => {
 	
 	const Page404 = ({ location }) => {
 		if (props.isAuthenticated === false) {
-			console.log(location)
 			const path = location.pathname.toLowerCase();
 			if (path === "/transaction" || path === "/transaction/") {
 				return (<span></span>);
@@ -40,7 +37,6 @@ const App = (props) => {
 	if (props.isAuthenticated) {
 		routes = (
 			<React.Fragment>
-				<ScrollToTop />
 				<Switch>
 					<Route path="/Auth" render={(props) => <Auth {...props} />} />
 					<Route path="/Transaction" render={(props) => <TransactionPage {...props}/>} />
@@ -52,9 +48,9 @@ const App = (props) => {
 	} else {
 		routes = (
 			<React.Fragment>
-				<ScrollToTop />
 				<Switch>
 					<Route path="/Auth" render={(props) => <Auth {...props} />} />
+					<Route path="/Transaction" render={(props) => <TransactionPage {...props}/>} />
 					<Route path="/" exact render={(props) => <HomePage {...props} />} />
 					<Route component={Page404} />
 				</Switch>

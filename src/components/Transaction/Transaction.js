@@ -5,13 +5,14 @@ import * as actions from '../../store/actions/index';
 import classes from './Transaction.css';
 import Card from '../UI/Card/Card';
 import Container from '../UI/Container/Container';
-import { toCommas } from '../../shared/utility';
+import { toCommas, unixToMMDDYYYY } from '../../shared/utility';
 import Skeleton from '../UI/Skeleton/Skeleton';
 import { IconUp, IconDown } from '../UI/Icon/Icon';
 import TextFormView from '../UI/TextFormView/TextFormView';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import FormTransaction from '../Home/TransactionHandler/FormTransaction';
+import ScrollToTop from '../UI/ScrollToTop/ScrollToTop';
 
 const Transaction = (props) => {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -23,14 +24,14 @@ const Transaction = (props) => {
   let initSkeletonDescription = <Skeleton height="24px" light />;
   let initTransactionOpen = <Skeleton height="24px" light />;
 
-  if (props.transaction) {
+  if (props.transactionDetail) {
     initTransactionIcon = (
       <IconUp 
         hexColor='#718AC9'
         width='32'
         height='32'/>
     )
-    if (props.transaction.type === 'spend') {
+    if (props.transactionDetail.type === 'spend') {
       initTransactionIcon = (
         <IconDown 
           hexColor='#D05656'
@@ -38,11 +39,11 @@ const Transaction = (props) => {
           height='32'/>
       )
     }
-    initMoney = toCommas(props.transaction.money);
-    initSkeletonName = props.transaction.name;
-    initSkeletonDate = props.transaction.date;
-    initSkeletonDescription = props.transaction.description;
-    initTransactionOpen = props.transaction.transactionType;
+    initMoney = toCommas(props.transactionDetail.money);
+    initSkeletonName = props.transactionDetail.name;
+    initSkeletonDate =  unixToMMDDYYYY(props.transactionDetail.date);
+    initSkeletonDescription = props.transactionDetail.description;
+    initTransactionOpen = props.transactionDetail.transactionType;
   }
 
   const btnEditClickedHandler = (event) => {
@@ -76,6 +77,7 @@ const Transaction = (props) => {
 
   return (
     <React.Fragment>
+      {/* <ScrollToTop /> */}
       <div className={classes.Transaction}>
         <div className={classes.Highlight}>
           <Container>
@@ -109,11 +111,11 @@ const Transaction = (props) => {
               <div className={classes.ButtonWrapper}>
                 <Button 
                   btnType="Secondary"
-                  disabled={!props.transaction}
+                  disabled={!props.transactionDetail}
                   clicked={btnEditClickedHandler}>Edit</Button>
                 <Button
                   btnType="Danger"
-                  disabled={!props.transaction}
+                  disabled={!props.transactionDetail}
                   clicked={btnDeleteClickHandler}>Delete</Button>
               </div>
             </Card>
@@ -130,7 +132,7 @@ const Transaction = (props) => {
             transactionOpen={'Income'}
             show={isModalEditOpen}
             transactionType="Edit"
-            transactionData={props.transaction}/>
+            transactionData={props.transactionDetail}/>
       </Modal>
     </React.Fragment>
   )
@@ -138,7 +140,7 @@ const Transaction = (props) => {
 
 const mapStateToProps = state => {
   return {
-    transaction: state.trans.transaction
+    transactionDetail: state.trans.transactionDetail
   };
 };
 

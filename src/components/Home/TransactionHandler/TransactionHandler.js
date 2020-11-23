@@ -34,15 +34,15 @@ const TransactionHandler = (props) => {
   const modalFooter = (
     <React.Fragment>
       <Button 
-        btnType="Success"
+        btnType={transactionOpen == 'income'? 'SwitchPrimary' : 'SwitchSecondary'}
         clicked={setTransactionToIncome}>Income</Button>
       <Button 
-        btnType="Success"
+        btnType={transactionOpen == 'spend'? 'SwitchPrimary' : 'SwitchSecondary'}
         clicked={setTransactionToSpend}>Spend</Button>
     </React.Fragment>
   )
 
-  const targetElement = document.querySelector('#Modal');
+  const targetElement = document.querySelector('#modalTransaction');
   if (props.show && targetElement !== null) {
     disableBodyScroll(targetElement);
   } else if (!props.show && targetElement !== null) {
@@ -51,6 +51,7 @@ const TransactionHandler = (props) => {
 
   return (
     <Modal
+      modalId={'modalTransaction'}
       show={props.show}
       styleTop={'8%'}
       styleWidth={'90%'}

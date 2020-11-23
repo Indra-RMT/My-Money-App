@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import classes from './Home.css';
+import * as actions from '../../store/actions/index';
+import { nowDate, toCommas } from '../../shared/utility';
 import Container from '../../components/UI/Container/Container';
 import Card from '../../components/UI/Card/Card';
 import TransactionsHistory from './TransactionsHistory/TransactionsHistory';
 import TransactionHandler from './TransactionHandler/TransactionHandler';
 import Toast from '../UI/Toast/Toast';
-import * as actions from '../../store/actions/index';
-import { nowDate, toCommas } from '../../shared/utility';
 import Skeleton from '../../components/UI/Skeleton/Skeleton';
+import FetchFailed from '../UI/FetchFailed/FetchFailed';
  
 const Home = (props) => {
   const [isModalTransactionOpen, setModalTransactionOpen] = useState(false);
 
   useEffect(() => {
     if (props.userId) {
-      props.onInitTransactions(props.userId);
+      props.onReadAllTransaction(props.userId);
     }
   }, [props.userId]);
 
@@ -39,8 +40,8 @@ const Home = (props) => {
   let initIncome = <Skeleton height="16px" isAlignRight={false} light />;
   let initSpend = <Skeleton height="16px" isAlignRight={false} light />;
 
-  if(Array.isArray(props.transactions)) {
-    const [ballance, income, spend] = calculateBallance(props.transactions);
+  if(Array.isArray(props.allTransaction)) {
+    const [ballance, income, spend] = calculateBallance(props.allTransaction);
     initBallance = toCommas(ballance).toString();
     initIncome = toCommas(income).toString();
     initSpend = toCommas(spend).toString(); 
@@ -98,11 +99,11 @@ const Home = (props) => {
             <div className={classes.SectionTextHeader}>Recent</div>
             <div className={classes.Transactions}>
               <TransactionsHistory 
-              trsansactions={props.transactions}/>
+              allTransaction={props.allTransaction}/>
             </div>
-            <div className={classes.LoadMoreWrapper}>
+            {/* <div className={classes.LoadMoreWrapper}>
               <button>show all</button>
-            </div>
+            </div> */}
           </section>
           </Container>
         </article>
@@ -119,18 +120,22 @@ const Home = (props) => {
         closeTransactionHandler={() => setModalTransactionOpen(false)}/>
       <Toast
         type={'Success'}
-        show={props.isAddTransactionSuccess}
+        show={props.success == 'add'}
         closed={() => props.onSetAddTransactionToDefault()}
         showTime={2000}>
         Add transaction success
       </Toast>
       <Toast
         type={'Danger'}
-        show={props.isAddTransactionSuccess === false}
+        show={props.error === 'add'}
         closed={() => props.onSetAddTransactionToDefault()}
         showTime={2000}>
         Add transaction failed
       </Toast>
+      <FetchFailed
+        FetchFailedId={'getTransactionFailed'}
+        show={props.error === 'read'}/>
+
     </React.Fragment>
   );
 }
@@ -138,14 +143,16 @@ const Home = (props) => {
 const mapStateToProps = state => {
   return {
     userId: state.auth.userId,
-    transactions: state.trans.transactions,
-    isAddTransactionSuccess: state.trans.isAddTransactionSuccess,
+    allTransaction: state.trans.allTransaction,
+    success: state.trans.success,
+    loading: state.trans.loading,
+    error: state.trans.error,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onInitTransactions: (userId) => dispatch(actions.initTransactions(userId)),
+    onReadAllTransaction: (userId) => dispatch(actions.readAllTransaction(userId)),
     onSetAddTransactionToDefault: () => dispatch(actions.addTransactionDefault())
   };
 };

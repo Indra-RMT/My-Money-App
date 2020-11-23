@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 
 import classes from './Input.css';
@@ -6,7 +6,6 @@ import { updateObject } from './../../../shared/utility';
 
 const input = ( props ) => {
 	const [isFocus, setIsFocus] = useState(false);
-	const [startDate, setStartDate] = useState(new Date());
 
 	let inputElement = null;
 	const inputClasses = [classes.InputElement];
@@ -72,12 +71,11 @@ const input = ( props ) => {
 						className={[classes.DatePicker, inputClasses].join(' ')}
 						wrapperClassName={classes.datePicker}
 						{...props.elementConfig}
-						selected={startDate}
+						selected={new Date(+props.value)}
 						onChange={date => {
 							if (date === null) {
 								date = new Date();
 							}
-							setStartDate(date)
 							props.changed({target:{value:date}})
 						}}
 						onBlur={() => setIsFocus(true)} />

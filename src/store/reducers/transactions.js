@@ -2,51 +2,77 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  isAddTransactionSuccess: null,
-  transactions: null,
-  transaction: null
+  allTransaction: null,
+  success: false,
+  error: false,
+  transactionDetail: null,
+  loading: false,
 };
 
-const fetchTransactionsStart = () => {
-  return
+const fetchTransactionStart = (state, action) => {
+  return updateObject(state, {
+    error: false,
+    loading: true
+  });
 }
 
-const fetchTransactionSuccess = (state, action) => {
-  return updateObject(state, { transactions: action.transactions })
+const fetchTransactionFail = (state, action) => {
+  return updateObject(state, {
+    error: 'read',
+    loading: false
+  })
 }
 
-const fetchTransactionFail = () => {
-  return
+const setAllTransaction = (state, action) => {
+  return updateObject(state, {
+    allTransaction: action.allTransaction,
+    loading: false
+  })
 }
 
 const setTransactionSuccess = (state, action) => {
-  return updateObject(state, { isAddTransactionSuccess: true });
+  return updateObject(state, {
+    success: action.success,
+    error: false,
+    loading: false
+  });
+}
+
+const setTransactionFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
 }
 
 const setTransactionDefault = (state, action) => {
-  return updateObject(state, { isAddTransactionSuccess: null });
+  return updateObject(state, {
+    success: false,
+    error: false,
+    loading: false
+  });
 } 
 
-const setTransactionFail = (state, action) => {
-  return updateObject(state, { isAddTransactionSuccess: false });
+const setTransactionDetail = (state, action) => {
+  return updateObject(state, {
+    transactionDetail: action.transactionDetail,
+    loading: false });
 }
 
-const setGetTransByIdSuccess = (state, action) => {
-  return updateObject(state, { transaction: action.transaction });
-}
-
-const setTransactionToNull = (state, action) => {
-  return updateObject(state, { transaction: null });
+const setNullTransactionDetail = (state, action) => {
+  return updateObject(state, { transactionDetail: null });
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.TRANS_FETCH_START: return fetchTransactionStart(state);
+    case actionTypes.TRANS_FETCH_FAIL: return fetchTransactionFail(state);
+    case actionTypes.TRANS_READ_ALLTRANSACTION_SUCCESS: return setAllTransaction(state, action);
     case actionTypes.TRANS_SUCCESS: return setTransactionSuccess(state, action);
     case actionTypes.TRANS_DEFAULT: return setTransactionDefault(state, action);
     case actionTypes.TRANS_FAIL: return setTransactionFail(state, action);
-    case actionTypes.TRANS_FETCH_INIT_SUCCESS: return fetchTransactionSuccess(state, action);
-    case actionTypes.TRANS_GET_BY_ID_SUCCESS: return setGetTransByIdSuccess(state, action);
-    case actionTypes.TRANS_EDIT_TO_NULL: return setTransactionToNull(state);
+    case actionTypes.TRANS_GET_BY_ID_SUCCESS: return setTransactionDetail(state, action);
+    case actionTypes.TRANS_EDIT_TO_NULL: return setNullTransactionDetail(state);
     default: return state
   }
 }

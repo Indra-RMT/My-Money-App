@@ -1,5 +1,4 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects';
-import { getTransactionById } from '../actions';
 
 import * as actionTypes from '../actions/actionTypes';
 import {
@@ -11,7 +10,7 @@ import {
 
 import {
   addTransactionSaga,
-  initTransactionsSaga,
+  readAllTransactionSaga,
   getTransactionByIdSaga
 } from './transactions';
 
@@ -21,7 +20,7 @@ export function* watchAuth() {
     takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga),
     takeEvery(actionTypes.AUTH_USERS, authUserSaga),
     takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga),
-    takeEvery(actionTypes.TRANS_INIT, initTransactionsSaga),
+    takeEvery(actionTypes.TRANS_READ_ALLTRANSACTION, readAllTransactionSaga),
     takeEvery(actionTypes.TRANS_ADD, addTransactionSaga),
     takeEvery(actionTypes.TRANS_GET_BY_ID, getTransactionByIdSaga)
   ])

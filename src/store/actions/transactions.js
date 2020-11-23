@@ -1,16 +1,28 @@
 import * as actionTypes from './actionTypes';
 
-export const initTransactions = (userId) => {
+export const fetchTransactionStart = () => {
   return {
-    type: actionTypes.TRANS_INIT,
+    type: actionTypes.TRANS_FETCH_START
+  }
+}
+
+export const fetchTransactionFail = () => {
+  return {
+    type: actionTypes.TRANS_FETCH_FAIL
+  }
+}
+
+export const readAllTransaction = (userId) => {
+  return {
+    type: actionTypes.TRANS_READ_ALLTRANSACTION,
     userId: userId
   }
 }
 
-export const fetchTransactionsSuccess = (transactions) => {
+export const readAllTransactionSuccess = (allTransaction) => {
   return {
-    type: actionTypes.TRANS_FETCH_INIT_SUCCESS,
-    transactions: transactions
+    type: actionTypes.TRANS_READ_ALLTRANSACTION_SUCCESS,
+    allTransaction: allTransaction
   }
 }
 
@@ -35,7 +47,8 @@ export const addTransaction = ({
 
 export const addTransactionSuccess = () => {
   return {
-    type: actionTypes.TRANS_SUCCESS
+    type: actionTypes.TRANS_SUCCESS,
+    success: 'add'
   }
 }
 
@@ -47,7 +60,8 @@ export const addTransactionDefault = () => {
 
 export const addTransactionFail = () => {
   return {
-    type: actionTypes.TRANS_FAIL
+    type: actionTypes.TRANS_FAIL,
+    error: 'add'
   }
 }
 
@@ -58,17 +72,17 @@ export const getTransactionById = (transactionId) => {
   }
 }
 
-export const getTransactionByIdSuccess = (transaction) => {
+export const getTransactionByIdSuccess = (transactionDetail) => {
   return {
     type: actionTypes.TRANS_GET_BY_ID_SUCCESS,
-    transaction: transaction
+    transactionDetail: transactionDetail
   }
 }
 
-export const editTransaction = (transaction) => {
+export const editTransaction = (transactionDetail) => {
   return {
     type: actionTypes.TRANS_EDIT,
-    transaction: transaction
+    transactionDetail: transactionDetail
   }
 }
 

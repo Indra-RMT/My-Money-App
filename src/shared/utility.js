@@ -56,8 +56,8 @@ export const checkValidity = ( value, rules ) => {
 }
 
 export const nowDate = () => {
-  const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-  const myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agust', 'September', 'October', 'November', 'December'];
+  const myDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth();
@@ -70,4 +70,14 @@ export const nowDate = () => {
 
 export const toCommas = (value) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+export const unixToMMDDYYYY = (unix) => {
+  const ts_ms = unix;
+  const date_ob = new Date(ts_ms);
+  const year = date_ob.getFullYear();
+  const month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  const date = ("0" + date_ob.getDate()).slice(-2);
+
+  return `${month}/${date}/${year}`;
 }
