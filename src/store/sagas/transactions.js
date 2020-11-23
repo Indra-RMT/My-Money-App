@@ -48,15 +48,14 @@ export function* getTransactionByIdSaga(action) {
     const userToken = localStorage.getItem('token');
     const queryParams = `?auth=${userToken}&orderBy="$key"&equalTo="${action.transactionId}"`;
     const response = yield axios.get(queryParams);
-    console.log(response);
-    // const fetchedTransactions = [];
-    // for ( let key in response.data ) {
-    //   fetchedTransactions.push( {
-    //         ...response.data[key],
-    //         id: key
-    //     } );
-    // }
-    // yield put(actions.fetchTransactionsSuccess(fetchedTransactions));
+    let fetchedTransaction = null;
+    for ( let key in response.data ) {
+      fetchedTransaction = {
+        ...response.data[key],
+        id: key
+      };
+    }
+    yield put(actions.getTransactionByIdSuccess(fetchedTransaction));
   } catch (error) {
   }
 }

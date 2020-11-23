@@ -1,12 +1,13 @@
 {
   "name": "practice",
+  "homepage": ".",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "build:prod": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC",

@@ -19,8 +19,7 @@
 }
 
 .Button:disabled {
-  color: rgb(255, 255, 255);
-  background-color: #a9ce8d;
+  opacity: 50%;
   cursor: not-allowed;
 }
 
@@ -28,8 +27,12 @@
   background-color: #68BC26;
 }
 
+.Secondary {
+  background-color: #9C97FB;
+}
+
 .Danger {
-  color: #944317;
+  background-color: #F87171;
 }
 
 .White {

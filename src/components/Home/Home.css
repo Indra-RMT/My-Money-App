@@ -54,6 +54,8 @@
   line-height: 16px;
   color: #111D45;
   margin: 11px auto 9px auto;
+  width: 100%;
+  text-align: center;
 }
 
 .LineChartWrapper {

@@ -47,7 +47,7 @@ export function* authUserSaga(action) {
   } catch (error) {
     yield put(actions.authFail(error.response.data.error));
     yield put(actions.setSignupStatus(false));
-    console.log(error);
+    // console.log(error);
   }
 }
 

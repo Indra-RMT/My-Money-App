@@ -2,6 +2,7 @@ import React from 'react';
 
 import classes from './Transaction.css';
 import { IconUp, IconDown } from '../../../UI/Icon/Icon'
+import { toCommas } from '../../../../shared/utility';
 
 const Transaction = (props) => {
   let transactionIcon = (
@@ -26,7 +27,7 @@ const Transaction = (props) => {
       onClick={props.clicked}>
       <div className={classes.LeftWrapper}>
         <div>{transactionIcon}</div>
-        <div>{props.money}</div>
+        <div>{toCommas(props.money)}</div>
       </div>
       <div className={classes.NameWrapper}>
         <div>{props.name}</div>

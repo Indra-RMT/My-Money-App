@@ -1,0 +1,43 @@
+body {
+  height: calc(100% - 54px);
+}
+
+.Highlight {
+  margin-top: 54px;
+  height: 64px;
+  background-color: #7552A8;
+}
+
+.CardHighlightWrapper {
+  padding: 19px 10px 0 10px;
+}
+
+.CardHighlightWrapper > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TransactionIcon {
+  min-width: 10%;
+  height: 34px;
+}
+
+.Money {
+  font-weight: 400;
+  font-size: 29px;
+  width: 100%;
+  text-align: right;
+}
+
+.TransactionInfo {
+  margin-top: 59px
+}
+
+.ButtonWrapper {
+  display: flex;
+  margin-top: 49px;
+}
+
+.ButtonWrapper button:nth-child(1) {
+  margin-right: 19px;
+}

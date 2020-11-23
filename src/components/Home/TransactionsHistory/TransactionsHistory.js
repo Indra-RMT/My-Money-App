@@ -11,6 +11,7 @@ const TransactionsHistory = (props) => {
         transactionId: transId
       }
     });
+    // console.log(transId);
   }
 
   let transactionList = null;

@@ -35,9 +35,9 @@ const Home = (props) => {
     return [ballance, income, spend]
   }
 
-  let initBallance = <Skeleton height="43px" isAlignRight={true} />;
-  let initIncome = <Skeleton height="12px" isAlignRight={false} />;
-  let initSpend = <Skeleton height="12px" isAlignRight={false} />;
+  let initBallance = <Skeleton height="56px" isAlignRight={true} />;
+  let initIncome = <Skeleton height="16px" isAlignRight={false} light />;
+  let initSpend = <Skeleton height="16px" isAlignRight={false} light />;
 
   if(Array.isArray(props.transactions)) {
     const [ballance, income, spend] = calculateBallance(props.transactions);

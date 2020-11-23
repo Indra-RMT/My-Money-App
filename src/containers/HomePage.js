@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import * as actions from '../store/actions/index';
 
 import TopNavigation from '../components/Navigation/TopNavigation/TopNavigation';
-import SideDrawer from '../components/Navigation/SideDrawer/SideDrawer';
 import Home from '../components/Home/Home';
 
 const HomePage = (props) => {

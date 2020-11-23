@@ -19,5 +19,8 @@ export {
   addTransactionSuccess,
   addTransactionDefault,
   addTransactionFail,
-  getTransactionById
+  getTransactionById,
+  getTransactionByIdSuccess,
+  editTransaction,
+  editTransactionToNull
 } from './transactions';

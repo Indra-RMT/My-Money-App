@@ -8,13 +8,18 @@ const Skeleton = (props) => {
   if (props.isAlignRight) {
     styleAlign = 'auto';
   }
+
+  let classLight = null;
+  if (props.light) {
+    classLight = classes.LightSkeleton;
+  }
   
   return (
-    <span className={classes.Skeleton}
+    <span className={[classes.Skeleton, classLight].join(' ')}
       style={{
         height: props.height,
         marginLeft: styleAlign
-      }}>
+      }}> 
     </span>
   )
 }

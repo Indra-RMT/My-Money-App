@@ -1,16 +1,14 @@
 .Skeleton {
   background: #7552A8;
-  color: transparent;
   position: relative;
   overflow: hidden;
-  width: 200px;
-  height: 21px;
+  width: 100%;
   border-radius: 8px;
-  width: 80%;
-  display: inline-block;
   text-align: center;
-  /* display:table-cell; */
   vertical-align:middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Skeleton::before {
@@ -26,6 +24,14 @@
   animation-duration: 1.3s;
   animation-iteration-count: infinite;
   filter: blur(5px);
+}
+
+.LightSkeleton {
+  background: #ffffff;
+}
+
+.LightSkeleton::before {
+  background-image: linear-gradient(89deg, #ebeaff, #cad2ff);
 }
 
 @keyframes gradient-animation {

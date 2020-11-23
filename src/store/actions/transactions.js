@@ -51,10 +51,29 @@ export const addTransactionFail = () => {
   }
 }
 
-export const getTransactionById = (userId, transactionId) => {
+export const getTransactionById = (transactionId) => {
   return {
     type: actionTypes.TRANS_GET_BY_ID,
-    userId: userId,
     transactionId: transactionId
+  }
+}
+
+export const getTransactionByIdSuccess = (transaction) => {
+  return {
+    type: actionTypes.TRANS_GET_BY_ID_SUCCESS,
+    transaction: transaction
+  }
+}
+
+export const editTransaction = (transaction) => {
+  return {
+    type: actionTypes.TRANS_EDIT,
+    transaction: transaction
+  }
+}
+
+export const editTransactionToNull = () => {
+  return {
+    type: actionTypes.TRANS_EDIT_TO_NULL
   }
 }
