@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 import * as actions from '../../store/actions/index';
 import classes from './Transaction.css';
@@ -12,7 +13,7 @@ import TextFormView from '../UI/TextFormView/TextFormView';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import FormTransaction from '../Home/TransactionHandler/FormTransaction';
-import ScrollToTop from '../UI/ScrollToTop/ScrollToTop';
+import Toast from '../UI/Toast/Toast';
 
 const Transaction = (props) => {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -42,7 +43,8 @@ const Transaction = (props) => {
     initMoney = toCommas(props.transactionDetail.money);
     initSkeletonName = props.transactionDetail.name;
     initSkeletonDate =  unixToMMDDYYYY(props.transactionDetail.date);
-    initSkeletonDescription = props.transactionDetail.description;
+    initSkeletonDescription = props.transactionDetail.description.length > 0 ?
+      props.transactionDetail.description : '-';
     initTransactionOpen = props.transactionDetail.transactionType;
   }
 
@@ -50,8 +52,8 @@ const Transaction = (props) => {
     setIsModalEditOpen(true);
   }
 
-  const btnDeleteClickHandler = (event) => {
-    console.log(event);
+  const btnDeleteClickHandler = (transactionId) => {
+    props.onDeleteTransaction(transactionId);
   }
 
   const closeModalHandler = (event) => {
@@ -74,6 +76,15 @@ const Transaction = (props) => {
         onClick={() => setIsModalEditOpen(false)}>X</button>
     </React.Fragment>
   );
+
+  let redirect = null;
+  if (props.success == 'delete') {
+    redirect = 
+      <Redirect
+        to={{
+          pathname: "/"
+        }}/>
+  }
 
   return (
     <React.Fragment>
@@ -115,8 +126,10 @@ const Transaction = (props) => {
                   clicked={btnEditClickedHandler}>Edit</Button>
                 <Button
                   btnType="Danger"
-                  disabled={!props.transactionDetail}
-                  clicked={btnDeleteClickHandler}>Delete</Button>
+                  disabled={!props.transactionDetail || props.loading}
+                  clicked={() => btnDeleteClickHandler(props.transactionDetail.id)}>
+                    Delete
+                </Button>
               </div>
             </Card>
           </Container>
@@ -124,8 +137,8 @@ const Transaction = (props) => {
       </div>
       <Modal
         show={isModalEditOpen}
-        styleTop="8%"
-        styleWidth="90%"
+        styleTop="1.5%"
+        styleWidth="95%"
         modalHeader={modalHeader}
         modalClosed={() => setIsModalEditOpen(false)}>
           <FormTransaction 
@@ -134,14 +147,32 @@ const Transaction = (props) => {
             transactionType="Edit"
             transactionData={props.transactionDetail}/>
       </Modal>
+      <Toast
+        type={'Danger'}
+        show={props.error === 'delete'}
+        closed={() => props.onSetTransactionToDefault()}
+        showTime={2000}>
+        Edit transaction failed
+      </Toast>
+      {redirect}
     </React.Fragment>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    transactionDetail: state.trans.transactionDetail
+    transactionDetail: state.trans.transactionDetail,
+    success: state.trans.success,
+    loading: state.trans.loading,
+    error: state.trans.error,
   };
 };
 
-export default connect(mapStateToProps)(Transaction);
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeleteTransaction: (transactionId) => dispatch(actions.deleteTransactionById(transactionId)),
+    onSetTransactionToDefault: () => dispatch(actions.transactionDefault()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Transaction);

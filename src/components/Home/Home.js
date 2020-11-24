@@ -50,7 +50,7 @@ const Home = (props) => {
   const closeModalHandler = (event) => {
     if (event.key === "Escape") {
       setModalTransactionOpen(false);
-      props.onSetAddTransactionToDefault();
+      props.onSetTransactionToDefault();
       window.removeEventListener('keydown', closeModalHandler);
     }
   }
@@ -121,21 +121,27 @@ const Home = (props) => {
       <Toast
         type={'Success'}
         show={props.success == 'add'}
-        closed={() => props.onSetAddTransactionToDefault()}
+        closed={() => props.onSetTransactionToDefault()}
         showTime={2000}>
         Add transaction success
       </Toast>
       <Toast
         type={'Danger'}
         show={props.error === 'add'}
-        closed={() => props.onSetAddTransactionToDefault()}
+        closed={() => props.onSetTransactionToDefault()}
         showTime={2000}>
         Add transaction failed
+      </Toast>
+      <Toast
+        type={'Success'}
+        show={props.success == 'delete'}
+        closed={() => props.onSetTransactionToDefault()}
+        showTime={2000}>
+        Delete transaction success
       </Toast>
       <FetchFailed
         FetchFailedId={'getTransactionFailed'}
         show={props.error === 'read'}/>
-
     </React.Fragment>
   );
 }
@@ -153,7 +159,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onReadAllTransaction: (userId) => dispatch(actions.readAllTransaction(userId)),
-    onSetAddTransactionToDefault: () => dispatch(actions.addTransactionDefault())
+    onSetTransactionToDefault: () => dispatch(actions.transactionDefault())
   };
 };
 

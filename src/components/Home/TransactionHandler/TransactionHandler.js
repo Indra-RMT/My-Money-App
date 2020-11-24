@@ -53,8 +53,8 @@ const TransactionHandler = (props) => {
     <Modal
       modalId={'modalTransaction'}
       show={props.show}
-      styleTop={'8%'}
-      styleWidth={'90%'}
+      styleTop={'1.5%'}
+      styleWidth={'95%'}
       modalClosed={props.closeTransactionHandler}
       modalHeader={modalHeader}
       modalFooter={modalFooter}>

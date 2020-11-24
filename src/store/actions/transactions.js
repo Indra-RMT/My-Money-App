@@ -45,29 +45,36 @@ export const addTransaction = ({
   };
 };
 
-export const addTransactionSuccess = () => {
+export const transactionSuccess = (target) => {
   return {
     type: actionTypes.TRANS_SUCCESS,
-    success: 'add'
+    success: target
   }
 }
 
-export const addTransactionDefault = () => {
+export const transactionDefault = () => {
   return {
     type: actionTypes.TRANS_DEFAULT
   }
 }
 
-export const addTransactionFail = () => {
+export const transactionFail = (target) => {
   return {
     type: actionTypes.TRANS_FAIL,
-    error: 'add'
+    error: target
   }
 }
 
 export const getTransactionById = (transactionId) => {
   return {
     type: actionTypes.TRANS_GET_BY_ID,
+    transactionId: transactionId
+  }
+}
+
+export const deleteTransactionById = (transactionId) => {
+  return {
+    type: actionTypes.TRANS_DELETE_BY_ID,
     transactionId: transactionId
   }
 }

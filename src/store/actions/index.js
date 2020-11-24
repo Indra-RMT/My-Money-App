@@ -18,11 +18,12 @@ export {
   readAllTransaction,
   readAllTransactionSuccess,
   addTransaction,
-  addTransactionSuccess,
-  addTransactionDefault,
-  addTransactionFail,
+  transactionSuccess,
+  transactionDefault,
+  transactionFail,
   getTransactionById,
   getTransactionByIdSuccess,
   editTransaction,
-  editTransactionToNull
+  editTransactionToNull,
+  deleteTransactionById
 } from './transactions';
