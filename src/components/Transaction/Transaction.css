@@ -3,8 +3,8 @@ body {
 }
 
 .Highlight {
-  margin-top: 54px;
-  height: 64px;
+  margin-top: 40px;
+  height: 56px;
   background-color: #7552A8;
 }
 
@@ -24,9 +24,11 @@ body {
 
 .Money {
   font-weight: 400;
-  font-size: 29px;
+  font-size: 23px;
   width: 100%;
-  text-align: right;
+  display: flex;
+  align-self: center;
+  justify-content: flex-end;
 }
 
 .TransactionInfo {

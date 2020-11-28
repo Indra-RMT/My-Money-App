@@ -11,16 +11,16 @@ const NavigationItems = (props) => {
         link="/">
         <IconHome
           color={'#000000'}
-          width={'32px'}
-          height={'32px'}/>
+          width={'24px'}
+          height={'24px'}/>
         <div className={classes.PageName}>Home</div>
       </NavigationItem>
       <NavigationItem
         link="/transactions">
         <IconArrowUpDown
           color={'#000000'}
-          width={'32px'}
-          height={'32px'}/>
+          width={'24px'}
+          height={'24px'}/>
         <div className={classes.PageName}>Transactions</div>
       </NavigationItem>
     </ul>

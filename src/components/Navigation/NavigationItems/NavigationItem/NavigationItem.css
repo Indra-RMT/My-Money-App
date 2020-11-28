@@ -6,11 +6,14 @@
 .NavigationItem a {
   color: #7552A8;
   text-decoration: none;
-  width: 100%;
+  margin: 0 10px 0 10px;
   box-sizing: border-box;
   display: block;
-  padding: 16px;display: flex;
+  padding: 10px;
+  padding-left: 21px;
+  display: flex;
   align-items: center;
+  border-radius: 8px;
 }
 
 .NavigationItem a.active {
