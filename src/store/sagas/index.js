@@ -12,7 +12,8 @@ import {
   addTransactionSaga,
   readAllTransactionSaga,
   getTransactionByIdSaga,
-  deleteTransactionByIdSaga
+  deleteTransactionByIdSaga,
+  editTransaction
 } from './transactions';
 
 export function* watchAuth() {
@@ -24,6 +25,7 @@ export function* watchAuth() {
     takeEvery(actionTypes.TRANS_READ_ALLTRANSACTION, readAllTransactionSaga),
     takeEvery(actionTypes.TRANS_ADD, addTransactionSaga),
     takeEvery(actionTypes.TRANS_GET_BY_ID, getTransactionByIdSaga),
-    takeEvery(actionTypes.TRANS_DELETE_BY_ID, deleteTransactionByIdSaga)
+    takeEvery(actionTypes.TRANS_DELETE_BY_ID, deleteTransactionByIdSaga),
+    takeEvery(actionTypes.TRANS_EDIT, editTransaction)
   ])
 }

@@ -141,7 +141,8 @@ const Transaction = (props) => {
         styleWidth="95%"
         modalHeader={modalHeader}
         modalClosed={() => setIsModalEditOpen(false)}>
-          <FormTransaction 
+          <FormTransaction
+            transactionId={props.transactionDetail ? props.transactionDetail.id : null}
             transactionOpen={'Income'}
             show={isModalEditOpen}
             transactionType="Edit"
@@ -152,7 +153,21 @@ const Transaction = (props) => {
         show={props.error === 'delete'}
         closed={() => props.onSetTransactionToDefault()}
         showTime={2000}>
+        Delete transaction failed
+      </Toast>
+      <Toast
+        type={'Danger'}
+        show={props.error === 'edit'}
+        closed={() => props.onSetTransactionToDefault()}
+        showTime={2000}>
         Edit transaction failed
+      </Toast>
+      <Toast
+        type={'Success'}
+        show={props.success === 'edit'}
+        closed={() => props.onSetTransactionToDefault()}
+        showTime={2000}>
+        Edit transaction success
       </Toast>
       {redirect}
     </React.Fragment>

@@ -75,3 +75,25 @@ export function* deleteTransactionByIdSaga(action) {
     yield put(actions.transactionFail('delete'));
   }
 }
+
+export function* editTransaction(action) {
+  const transactionId = action.transactionId;
+  const transactionData = { 
+    userId: action.transactionDetail.userId,
+    transactionType: action.transactionDetail.transactionType,
+    name: action.transactionDetail.name,
+    date: action.transactionDetail.date.getTime(),
+    money: action.transactionDetail.money,
+    description: action.transactionDetail.description
+  }
+
+  yield put(actions.fetchTransactionStart());
+  try {
+    const userToken = localStorage.getItem('token');
+    const queryParams = `?auth=${userToken}`;
+    yield pureAxios.put(`https://mymoney-a7d06.firebaseio.com/transactions/${transactionId}.json` + queryParams, transactionData);
+    yield put(actions.transactionSuccess('edit'));
+  } catch (error) {
+    yield put(actions.transactionFail('edit'));
+  }
+}

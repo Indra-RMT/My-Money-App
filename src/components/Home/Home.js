@@ -36,9 +36,9 @@ const Home = (props) => {
     return [ballance, income, spend]
   }
 
-  let initBallance = <Skeleton height="56px" isAlignRight={true} />;
-  let initIncome = <Skeleton height="16px" isAlignRight={false} light />;
-  let initSpend = <Skeleton height="16px" isAlignRight={false} light />;
+  let initBallance = <Skeleton height="39px" isAlignRight={false} />;
+  let initIncome = <Skeleton height="18px" isAlignRight={false} light />;
+  let initSpend = <Skeleton height="18px" isAlignRight={false} light />;
 
   if(Array.isArray(props.allTransaction)) {
     const [ballance, income, spend] = calculateBallance(props.allTransaction);
@@ -66,7 +66,7 @@ const Home = (props) => {
           <section className={classes.MyBallanceWrapper}>
             <Container>
             <div className={classes.BallanceText}>Ballance</div>
-            <div className={classes.BallanceDate}>{nowDate()}</div>
+            {/* <div className={classes.BallanceDate}>{nowDate()}</div> */}
             <div className={classes.BallanceNumber}>{initBallance}</div>
             </Container>
           </section>

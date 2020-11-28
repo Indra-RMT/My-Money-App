@@ -86,10 +86,11 @@ export const getTransactionByIdSuccess = (transactionDetail) => {
   }
 }
 
-export const editTransaction = (transactionDetail) => {
+export const editTransaction = (transactionDetail, transactionId) => {
   return {
     type: actionTypes.TRANS_EDIT,
-    transactionDetail: transactionDetail
+    transactionDetail: transactionDetail,
+    transactionId: transactionId
   }
 }
 

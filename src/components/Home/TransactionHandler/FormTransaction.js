@@ -142,15 +142,19 @@ const FormTransaction = (props) => {
     if (props.transactionType === "Edit") {
       setNameForm(updateObject(nameForm, {
         value: props.transactionData.name,
+        valid: true
       }));
       setMoneyIncomeForm(updateObject(moneyIncomeForm, {
         value: props.transactionData.money,
+        valid: true
       }));
       setDateForm(updateObject(dateForm, {
-        value: new Date(+props.transactionData.date)
+        value: new Date(+props.transactionData.date),
+        valid: true
       }));
       setDescriptionForm(updateObject(descriptionForm, {
         value: props.transactionData.description,
+        valid: true
       }));
     }
   }, [props.transactionOpen]);
@@ -209,7 +213,8 @@ const FormTransaction = (props) => {
     }
     if (props.transactionType === "Edit") {
       if (isValid) {
-        props.onEditTransaction({...userInputValue});
+        
+        props.onEditTransaction({...userInputValue}, props.transactionId);
       }
     }
   }
@@ -322,7 +327,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddTransaction: ({...args}) => dispatch(actions.addTransaction({...args})),
-    onEditTransaction: ({...args}) => dispatch(actions.editTransaction({...args}))
+    onEditTransaction: ({...args}, transactionId) => dispatch(actions.editTransaction({...args}, transactionId))
   };
 };
 
