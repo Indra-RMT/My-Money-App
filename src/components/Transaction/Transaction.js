@@ -20,10 +20,10 @@ const Transaction = (props) => {
 
   let initTransactionIcon = <Skeleton height="28px" isAlignRight={true} light />; 
   let initMoney = <Skeleton height="28px" isAlignRight={true} light />;
-  let initSkeletonName = <Skeleton height="24px" light />;
-  let initSkeletonDate = <Skeleton height="24px" light />;
-  let initSkeletonDescription = <Skeleton height="24px" light />;
-  let initTransactionOpen = <Skeleton height="24px" light />;
+  let initSkeletonName = <Skeleton height="21px" light />;
+  let initSkeletonDate = <Skeleton height="21px" light />;
+  let initSkeletonDescription = <Skeleton height="21px" light />;
+  let initTransactionOpen = <Skeleton height="23px" light />;
 
   if (props.transactionDetail) {
     initTransactionIcon = (
@@ -78,7 +78,7 @@ const Transaction = (props) => {
   );
 
   let redirect = null;
-  if (props.success == 'delete') {
+  if (props.success == 'delete' || props.success === 'edit') {
     redirect = 
       <Redirect
         to={{
@@ -161,13 +161,6 @@ const Transaction = (props) => {
         closed={() => props.onSetTransactionToDefault()}
         showTime={2000}>
         Edit transaction failed
-      </Toast>
-      <Toast
-        type={'Success'}
-        show={props.success === 'edit'}
-        closed={() => props.onSetTransactionToDefault()}
-        showTime={2000}>
-        Edit transaction success
       </Toast>
       {redirect}
     </React.Fragment>

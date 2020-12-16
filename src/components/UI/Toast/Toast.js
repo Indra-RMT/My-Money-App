@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './Toast.css';
 import Container from '../Container/Container';
@@ -21,7 +21,13 @@ const Toast = (props) => {
   if (props.type) {
     toastClass.push(classes[props.type]);
   }
-  
+
+  if(props.show){
+    setTimeout(() => { 
+      props.closed();
+    }, props.showTime);
+  }
+ 
   return (
     <CSSTransition
       mountOnEnter

@@ -213,7 +213,6 @@ const FormTransaction = (props) => {
     }
     if (props.transactionType === "Edit") {
       if (isValid) {
-        
         props.onEditTransaction({...userInputValue}, props.transactionId);
       }
     }

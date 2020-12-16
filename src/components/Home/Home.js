@@ -59,6 +59,11 @@ const Home = (props) => {
     window.addEventListener('keydown', closeModalHandler);
   }
 
+  if (props.success == 'add' && isModalTransactionOpen) {
+    setModalTransactionOpen(false);
+    console.log('success');
+  }
+
   return (
     <React.Fragment>
       <main>
@@ -136,8 +141,16 @@ const Home = (props) => {
         type={'Success'}
         show={props.success == 'delete'}
         closed={() => props.onSetTransactionToDefault()}
-        showTime={2000}>
+        showTime={2000}
+        delayIn={true}>
         Delete transaction success
+      </Toast>
+      <Toast
+        type={'Success'}
+        show={props.success == 'edit'}
+        closed={() => props.onSetTransactionToDefault()}
+        showTime={2000}>
+        Edit transaction success
       </Toast>
       <FetchFailed
         FetchFailedId={'getTransactionFailed'}
