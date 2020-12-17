@@ -21,7 +21,8 @@ const HomePage = (props) => {
   return (
     <div>
       {authRedirect}
-      <TopNavigation />
+      <TopNavigation 
+        logoutClickedHandler={() => {props.onLogout()}}/>
       <Home />
     </div>
   );
@@ -36,7 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    onLogout: () => dispatch(actions.logout()),
   };
 };
 

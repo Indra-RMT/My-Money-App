@@ -41,6 +41,9 @@ const SideDrawer = (props) => {
           </section>
           <section className={classes.PageList}>
             <NavigationItems/>
+            <div className={classes.Logout}>
+              <button onClick={props.logoutClicked}>Logout</button>
+            </div>
           </section>
         </div> 
       </CSSTransition>

@@ -1,10 +1,18 @@
-.SideDrawer{
+.SideDrawer {
   top: 0;
   height: 100%;
   width: 80%;
   position: fixed;
   z-index: 100;
   background-color: #ffffff;
+  overflow: scroll;
+  overflow-x: hidden;
+
+}
+
+.SideDrawer::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 .HeaderSection {
@@ -36,6 +44,31 @@
   line-height: 15.25px;
   color: #ffffff;
   margin: 5px 0 0 31px;
+}
+
+.PageList {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 201px);
+}
+
+.Logout {
+  display: inline-block;
+  height: 100%;
+  margin-top: 0px;
+  bottom: 0;
+  position: relative;
+}
+
+.Logout button {
+  position: absolute;
+  bottom: 0;
+  border: none;
+  margin-left: 20px;
+  font-weight: 600;
+  color: #7552A8;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .SideDrawerOpen {

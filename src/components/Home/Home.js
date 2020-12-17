@@ -61,7 +61,6 @@ const Home = (props) => {
 
   if (props.success == 'add' && isModalTransactionOpen) {
     setModalTransactionOpen(false);
-    console.log('success');
   }
 
   return (

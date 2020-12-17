@@ -41,7 +41,8 @@ const TopNavigation = (props) => {
           show={isSideDrawerOpen}
           clicked={() => setIsSideDrawerOpen(!isSideDrawerOpen)}/>
       <SideDrawer 
-        show={isSideDrawerOpen}/>
+        show={isSideDrawerOpen}
+        logoutClicked={props.logoutClickedHandler}/>
     </nav>
   )
 }

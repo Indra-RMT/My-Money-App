@@ -82,7 +82,7 @@ const Login = (props) => {
   const checkAllFormIsValid = () => {
     let isValid = true;
     isValid = emailForm.valid;
-    isValid = emailForm.valid && isValid;
+    isValid = passwordForm.valid && isValid;
     return isValid;
   }
 
@@ -135,8 +135,8 @@ const Login = (props) => {
   }
 
   const closeModal = () => {
-    setShowModalMessage(false);
     props.onSetAuthErrorFalse();
+    setShowModalMessage(false);
 
     if (props.signupStatus) {
       props.onSetSignupStatusFalse();
@@ -145,7 +145,7 @@ const Login = (props) => {
 
   let modalMessage = null;
   if(props.error){
-    switch(props.error.message){
+    switch(props.error.message.split(" ")[0]){
       case 'INVALID_EMAIL':
         modalMessage = 'Email or password is incorrect';
         break;
@@ -158,12 +158,16 @@ const Login = (props) => {
       case 'EMAIL_EXISTS':
         modalMessage = 'Email account already exists';
         break;
+      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+        modalMessage = 'Too many attempts, try again later';
+        break;
     }
 
     if (!showModalMessage) {
       setShowModalMessage(true);
     }
   }
+
 
   if (props.signupStatus) {
     modalMessage = 'Register Success, now you can login';
@@ -176,6 +180,17 @@ const Login = (props) => {
   let authRedirect = null;
   if ( props.isAuthenticated ) {
     authRedirect = <Redirect to={props.authRedirectPath} />
+  }
+
+  const closeModalHandler = (event) => {
+    if (event.key === "Escape") {
+      closeModal();
+      window.removeEventListener('keydown', closeModalHandler);
+    }
+  }
+
+  if (showModalMessage) {
+    window.addEventListener('keydown', closeModalHandler);
   }
 
   return (
